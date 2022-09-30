@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:28:28 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/09/29 17:21:38 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/09/30 13:35:13 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_itoa(int n)
 {
 	int		len;
 	int		i;
-	char	sign;
+	char	*sign;
 	char	*str;
 
 	if (n == -2147483648)
@@ -25,11 +25,13 @@ char	*ft_itoa(int n)
 		str = "-2147483648";
 		return (str);
 	}
-	sign = '+';
-	if (n < 0 && n != -2147483648)
+	sign = (char *)ft_calloc(2, sizeof(char));
+	if (sign == NULL)
+		return (0);
+	if (n < 0)
 	{
 		n = -n;
-		sign = '-';
+		sign[0] = '-';
 		len = 1;
 	}
 	i = n;
@@ -42,12 +44,12 @@ char	*ft_itoa(int n)
 	if (str == NULL)
 		return (0);
 	i = 0;
-	if (sign == '-')
-		str[0] = '-';
 	if (n > 9)
 		str = ft_itoa(n / 10);
 	while (str[i] != '\0')
 		i++;
 	str[i] = n % 10 + '0';
+	if (sign[0] == '-')
+		str = ft_strjoin(sign, str);
 	return (str);
 }
