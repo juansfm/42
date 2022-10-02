@@ -13,6 +13,7 @@
 #include "libft.h"
 
 static int	num_words(const char *str, char c);
+static char	**alloc_matrix(const char *s1, int num_words, char c);
 
 char	**ft_split(const char *s, char c)
 {
@@ -24,17 +25,7 @@ char	**ft_split(const char *s, char c)
 
 	i = 0;
 	num_lines = num_words(s, c);
-	matrix = (char **)ft_calloc((num_lines), sizeof(char *));
-	if (matrix == NULL)
-		return (0);
-	i = 0;
-	while ((size_t)i < (ft_strlen(s) + 1))
-	{
-		matrix[i] = (char *)ft_calloc((ft_strlen(s) + 1), sizeof(char));
-		if (matrix[i] == NULL)
-			return (0);
-		i++;
-	}
+	matrix = alloc_matrix(s, num_lines, c);
 	i = 0;
 	j = 0;
 	k = 0;
@@ -56,20 +47,53 @@ char	**ft_split(const char *s, char c)
 	return (matrix);
 }
 
-static int	num_words(const char *str, char c)
+static int	num_words(const char *s1, char c)
 {
-	int	i;
-	int	num;
+	int		i;
+	int		num;
+	char	*s2;
 
+	s2 = ft_strtrim(s1, &c);
 	num = 0;
 	i = 0;
-	while (str[i])
+	while (s1[i])
 	{
-		if (i == 0 && str[i] == c)
+		if (i == 0 && s1[i] == c)
 			i++;
-		if (str[i] == c && str[i + 1] != c && str[i + 1] != '\0')
+		if (s1[i] == c && s1[i + 1] != c && s1[i + 1] != '\0')
 			num++;
 		i++;
 	}
 	return (num);
+}
+
+static char	**alloc_matrix(const char *s1, int num_words, char c)
+{
+	int		i;
+	int		j;
+	int		k;
+	char	*s2;
+	char	**matrix;
+
+	i = 0;
+	j = 0;
+	k = 0;
+	matrix = (char **)ft_calloc((num_words), sizeof(char *));
+	if (matrix == NULL)
+		return (0);
+	s2 = ft_strtrim(s1, &c);
+	while (i < num_words)
+	{
+		if (s2[i] == c)
+		{
+			matrix[k] = (char *)ft_calloc((j +1), sizeof(char));
+			if (matrix[k] == NULL)
+				return (0);
+			j = -1;
+			k++;
+		}
+		i++;
+		j++;
+	}
+	return (matrix);
 }
