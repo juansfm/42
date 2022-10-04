@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:28:28 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/01 16:44:37 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/04 11:53:21 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,17 @@ char	*ft_itoa(int num)
 	len = 1;
 	n = negative_numbers(num, &len, &sign);
 	i = n;
-	while (i / 10 > 9)
+	while (i / 10 != 0)
 	{
 		len++;
 		i = i / 10;
 	}
-	str = (char *)ft_calloc((len +1), sizeof(char));
+	str = (char *)ft_calloc((len + 1), sizeof(char));
 	if (str == NULL)
 		return (0);
 	if (sign == '-')
-	{
 		str[0] = sign;
-		i++;
-	}
-	str = fill_str(str, n, len);
+	str = fill_str(str, n, len - 1);
 	return (str);
 }
 
@@ -48,26 +45,18 @@ static char	*fill_str(char *str, unsigned int n, int len)
 {
 	int	i;
 	int	j;
-	int	k;
-	int	tenpower;
 
-	i = 0;
+	i = len;
 	if (str[0] == '-')
-		i = 1;
-	j = len +1;
-	while (i < len)
+		j = 1;
+	else
+		j = 0;
+	while (i >= j)
 	{
 		str[i] = n % 10 + '0';
-		k = 1;
-		tenpower = 1;
-		while (k < j)
-		{
-			tenpower *= 10;
-			k++;
-		}
-		n = n / tenpower;
-		j--;
-		i++;
+		if (i > 0)
+			n = n / 10;
+		i--;
 	}
 	return (str);
 }

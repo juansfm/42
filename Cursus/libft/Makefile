@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    MAKEFILE                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/22 19:52:34 by jsaavedr          #+#    #+#              #
-#    Updated: 2022/09/25 17:43:37 by jsaavedr         ###   ########.fr        #
+#    Updated: 2022/10/03 16:52:25 by jsaavedr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,14 +30,14 @@ RM		= rm -f
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-			${CC} -c ${CFLAGS} ${SRCS}
-			ar crs ${NAME} ${OBJS}
+	${CC} -c ${CFLAGS} ${SRCS}
+	ar crs ${NAME} ${OBJS}
 
 clean:
-				${RM} ${OBJS}
+	${RM} ${OBJS}
 
 fclean:		clean
-					${RM} ${NAME}
+	${RM} ${NAME}
 
 re:			fclean all
 
