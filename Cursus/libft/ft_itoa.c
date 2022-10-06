@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:28:28 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/04 11:53:21 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/05 13:24:47 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,7 @@ static unsigned int	negative_numbers(int num, unsigned int *len, char *sign)
 {
 	unsigned int	n;
 
-	if (num == -2147483648)
-	{
-		n = 2147483648;
-		*sign = '-';
-		*len = 2;
-	}
-	else if (num < 0)
+	if (num < 0)
 	{
 		*sign = '-';
 		*len = 2;

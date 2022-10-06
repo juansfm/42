@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:26:50 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/04 20:04:11 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/05 16:57:26 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	num_words(char *str, char c);
 static char	**alloc_matrix(char *s1, int num_words, char **matrix, char c);
 static void	fill_words(char *s, char **matrix, int num_words, char c);
+static void	ft_free(char **matrix, int k);
 
 char	**ft_split(const char *s, char c)
 {
@@ -30,6 +31,8 @@ char	**ft_split(const char *s, char c)
 	if (matrix == NULL)
 		return (0);
 	matrix = alloc_matrix(str, num_lines, matrix, c);
+	if (matrix == NULL)
+		return (0);
 	fill_words(str, matrix, num_lines, c);
 	free(str);
 	return (matrix);
@@ -71,7 +74,7 @@ static char	**alloc_matrix(char *s1, int num_words, char **matrix, char c)
 		}
 		matrix[k] = (char *)ft_calloc(j + 1, sizeof(char));
 		if (matrix[k] == NULL)
-			return (0);
+			return (ft_free(matrix, k), NULL);
 		k++;
 		i++;
 	}
@@ -103,4 +106,9 @@ static void	fill_words(char *s, char **matrix, int num_words, char c)
 	}
 }
 
-//hacer free si da fallos en una fila
+static void	ft_free(char **matrix, int k)
+{
+	while (k-- > 0)
+		free(matrix[k]);
+	free(matrix);
+}
