@@ -6,14 +6,14 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:28:28 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/05 13:24:47 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/06 11:58:40 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char			*fill_str(char *str, unsigned int n, int len);
-static unsigned int	negative_numbers(int num, unsigned int *len, char *sign);
+static char			*ft_fill_str(char *str, unsigned int n, int len);
+static unsigned int	ft_negative_numbers(int num, unsigned int *len, char *sign);
 
 char	*ft_itoa(int num)
 {
@@ -25,7 +25,7 @@ char	*ft_itoa(int num)
 
 	sign = '+';
 	len = 1;
-	n = negative_numbers(num, &len, &sign);
+	n = ft_negative_numbers(num, &len, &sign);
 	i = n;
 	while (i / 10 != 0)
 	{
@@ -37,11 +37,11 @@ char	*ft_itoa(int num)
 		return (0);
 	if (sign == '-')
 		str[0] = sign;
-	str = fill_str(str, n, len - 1);
+	str = ft_fill_str(str, n, len - 1);
 	return (str);
 }
 
-static char	*fill_str(char *str, unsigned int n, int len)
+static char	*ft_fill_str(char *str, unsigned int n, int len)
 {
 	int	i;
 	int	j;
@@ -61,7 +61,7 @@ static char	*fill_str(char *str, unsigned int n, int len)
 	return (str);
 }
 
-static unsigned int	negative_numbers(int num, unsigned int *len, char *sign)
+static unsigned int	ft_negative_numbers(int num, unsigned int *len, char *sign)
 {
 	unsigned int	n;
 

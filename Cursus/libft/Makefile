@@ -6,7 +6,7 @@
 #    By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/22 19:52:34 by jsaavedr          #+#    #+#              #
-#    Updated: 2022/10/03 16:52:25 by jsaavedr         ###   ########.fr        #
+#    Updated: 2022/10/06 12:54:52 by jsaavedr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ OBJS	= ${SRCS:.c=.o}
 
 CC		= gcc
 
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra -g
 
 RM		= rm -f
 
