@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:38:00 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/09/25 11:20:20 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/08 20:28:04 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 		i++;
 	while (i + j < dstsize)
 	{
-		if (src[j] == '\0' || i + j == dstsize -1)
+		if (src[j] == '\0' || i + j == dstsize - 1)
 		{
 			dst[i + j] = '\0';
 			break ;

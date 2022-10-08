@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:43:46 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/09/24 22:29:49 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/08 20:26:51 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 		if (str[i] == (unsigned char)c)
 		{
 			return (&str[i]);
-		}	
+		}
 		i++;
 	}
 	return (0);

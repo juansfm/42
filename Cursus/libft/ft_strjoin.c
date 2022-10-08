@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:53:20 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/09/26 15:51:44 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/08 20:28:00 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 
 	i = ft_strlen(s1);
 	j = ft_strlen(s2);
-	str = (char *)malloc((i + j +1) * sizeof(char));
+	str = (char *)malloc((i + j + 1) * sizeof(char));
 	if (str != NULL)
 	{
 		k = 0;

@@ -1,40 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 15:36:02 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/08 20:27:04 by jsaavedr         ###   ########.fr       */
+/*   Created: 2022/10/07 17:10:53 by jsaavedr          #+#    #+#             */
+/*   Updated: 2022/10/08 20:25:25 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	size_t	i;
-
-	i = 0;
-	if ((char)dst == '\0' && (char)src == '\0')
-		return (dst);
-	if ((size_t)dst - (size_t)src < len)
-	{
-		i = len - 1;
-		while (i < len)
-		{
-			((char *)dst)[i] = ((char *)src)[i];
-			i--;
-		}
-	}
-	else
-	{
-		while (i < len)
-		{
-			((char *)dst)[i] = ((char *)src)[i];
-			i++;
-		}
-	}
-	return (dst);
+	*lst = ft_lstlast(*lst);
+	if (!lst || !new)
+		return ;
+	(*lst)->next = new;
 }

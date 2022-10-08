@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 19:10:34 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/09/26 16:54:48 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/08 20:27:50 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strdup(const char *s1)
 	char	*s2;
 
 	i = 0;
-	s2 = (char *)malloc((ft_strlen(s1) +1) * sizeof(char));
+	s2 = (char *)malloc((ft_strlen(s1) + 1) * sizeof(char));
 	if (s2 != NULL)
 	{
 		while (i < ft_strlen(s1) + 1)

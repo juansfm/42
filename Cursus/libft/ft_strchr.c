@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:39:46 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/02 11:19:22 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/08 20:27:44 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strchr(const char *s, int c)
 
 	i = 0;
 	str = (char *)s;
-	while (i < ft_strlen(s) +1)
+	while (i < ft_strlen(s) + 1)
 	{
 		if (str[i] == (char)c)
 			return (&str[i]);

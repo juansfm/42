@@ -1,40 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 15:36:02 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/08 20:27:04 by jsaavedr         ###   ########.fr       */
+/*   Created: 2022/10/07 17:15:18 by jsaavedr          #+#    #+#             */
+/*   Updated: 2022/10/08 20:26:37 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+int	ft_lstsize(t_list *lst)
 {
-	size_t	i;
+	int	len;
 
-	i = 0;
-	if ((char)dst == '\0' && (char)src == '\0')
-		return (dst);
-	if ((size_t)dst - (size_t)src < len)
+	if (lst == NULL)
+		return (0);
+	len = 0;
+	while (lst)
 	{
-		i = len - 1;
-		while (i < len)
-		{
-			((char *)dst)[i] = ((char *)src)[i];
-			i--;
-		}
+		len++;
+		lst = lst->next;
 	}
-	else
-	{
-		while (i < len)
-		{
-			((char *)dst)[i] = ((char *)src)[i];
-			i++;
-		}
-	}
-	return (dst);
+	return (len);
 }

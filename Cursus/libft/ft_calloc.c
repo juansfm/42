@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 17:57:59 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/09/27 17:15:42 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/08 20:25:47 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_calloc(size_t count, size_t size)
 	void	*str;
 
 	i = 0;
-	str = malloc (count * size);
+	str = malloc(count * size);
 	if (str != NULL)
 	{
 		ft_bzero(str, count * size);
