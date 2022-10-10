@@ -6,7 +6,7 @@
 #    By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/22 19:52:34 by jsaavedr          #+#    #+#              #
-#    Updated: 2022/10/08 19:18:59 by jsaavedr         ###   ########.fr        #
+#    Updated: 2022/10/09 12:35:55 by jsaavedr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,11 +35,14 @@ RM		= rm -f
 
 all: ${NAME}
 
-${NAME}: ${OBJS} ${OBJS_BONUS}
+${NAME}: ${OBJS}
+	${CC} -c ${CFLAGS} ${SRCS}
+	ar crs ${NAME} ${OBJS}
+
+bonus: ${OBJS} ${OBJS_BONUS}
 	${CC} -c ${CFLAGS} ${SRCS} ${SRCS_BONUS}
 	ar crs ${NAME} ${OBJS} ${OBJS_BONUS}
 
-bonus: all
 
 clean:
 	${RM} ${OBJS} ${OBJS_BONUS}
