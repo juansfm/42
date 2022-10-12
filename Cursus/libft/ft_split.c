@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:26:50 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/08 12:18:29 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/12 11:42:42 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ char	**ft_split(const char *s, char c)
 	if (matrix == NULL)
 		return (free(str), NULL);
 	matrix = ft_alloc_matrix(str, num_lines, matrix, c);
-	if (matrix == NULL)
-		return (free(str), NULL);
 	ft_fill_words(str, matrix, num_lines, c);
 	free(str);
 	return (matrix);

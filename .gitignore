@@ -1,3 +1,5 @@
 .vscode/c_cpp_properties.json
 .vscode/settings.json
 Cursus/libft/a.out.dSYM/Contents/Info.plist
+.DS_Store
+Piscine/Shell00 ult/ex03/id_rsa_pub.pub

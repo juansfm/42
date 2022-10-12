@@ -6,7 +6,7 @@
 #    By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/22 19:52:34 by jsaavedr          #+#    #+#              #
-#    Updated: 2022/10/09 12:35:55 by jsaavedr         ###   ########.fr        #
+#    Updated: 2022/10/11 12:52:40 by jsaavedr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,6 @@ ${NAME}: ${OBJS}
 bonus: ${OBJS} ${OBJS_BONUS}
 	${CC} -c ${CFLAGS} ${SRCS} ${SRCS_BONUS}
 	ar crs ${NAME} ${OBJS} ${OBJS_BONUS}
-
 
 clean:
 	${RM} ${OBJS} ${OBJS_BONUS}
