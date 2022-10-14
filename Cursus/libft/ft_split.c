@@ -6,110 +6,82 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:26:50 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/12 11:42:42 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/14 13:38:06 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_num_words(char *str, char c);
-static char	**ft_alloc_matrix(char *s1, int num_words, char **matrix, char c);
-static void	ft_fill_words(char *s, char **matrix, int num_words, char c);
-static void	ft_free(char **matrix);
+static int	ft_num_words(const char *str, char c);
+static int	ft_size_word(const char *str, int i, char c);
+static void	ft_free(char **matrix, int j);
 
-char	**ft_split(const char *s, char c)
+char	**ft_split(char const *str, char c)
 {
+	int		i;
+	int		j;
 	int		num_lines;
-	char	*str;
 	char	**matrix;
+	int		len_word;
 
-	str = ft_strtrim(s, &c);
-	if (str == NULL)
-		return (NULL);
+	i = 0;
+	j = 0;
 	num_lines = ft_num_words(str, c);
-	matrix = (char **)ft_calloc(num_lines + 1, sizeof(char *));
+	matrix = (char **)ft_calloc((num_lines + 1), sizeof(char *));
 	if (matrix == NULL)
-		return (free(str), NULL);
-	matrix = ft_alloc_matrix(str, num_lines, matrix, c);
-	ft_fill_words(str, matrix, num_lines, c);
-	free(str);
+		return (NULL);
+	while (i < num_lines)
+	{
+		while (str[j] == c)
+			j++;
+		len_word = ft_size_word(str, j, c);
+		matrix[i] = ft_substr(str, j, len_word);
+		if (matrix[i] == NULL)
+			return (ft_free(matrix, i), NULL);
+		j += len_word;
+		i++;
+	}
 	return (matrix);
 }
 
-static int	ft_num_words(char *s1, char c)
-{
-	size_t	i;
-	int		num;
+static int	ft_num_words(const char *str, char c)
 
-	if (ft_strlen(s1) == 0)
-		return (0);
-	num = 1;
+{
+	int	i;
+	int	num;
+
 	i = 0;
-	while (i < ft_strlen(s1))
+	num = 0;
+	while (str && str[i])
 	{
-		if (s1[i] == c && s1[i + 1] != c)
+		if (str[i] != c)
+		{
 			num++;
-		i++;
+			while (str[i] != c && str[i])
+				i++;
+		}
+		else
+			i++;
 	}
 	return (num);
 }
 
-static char	**ft_alloc_matrix(char *s1, int num_words, char **matrix, char c)
+static int	ft_size_word(const char *str, int i, char c)
 {
-	size_t	i;
-	int		j;
-	int		k;
+	int	size;
 
-	i = 0;
-	k = 0;
-	while (k < num_words)
+	size = 0;
+	while (str[i] != c && str[i])
 	{
-		while (s1[i] == c && i <= ft_strlen(s1))
-			i++;
-		j = 0;
-		while (s1[i] != c && i <= ft_strlen(s1))
-		{
-			j++;
-			i++;
-		}
-		matrix[k] = (char *)ft_calloc(j + 1, sizeof(char));
-		if (matrix[k] == NULL)
-			return (ft_free(matrix), NULL);
-		k++;
+		size++;
 		i++;
 	}
-	return (matrix);
+	return (size);
 }
 
-static void	ft_fill_words(char *s, char **matrix, int num_words, char c)
+static void	ft_free(char **matrix, int j)
 {
-	int		i;
-	size_t	j;
-	size_t	k;
-
-	i = 0;
-	k = 0;
-	while (k < ft_strlen(s) && i < num_words)
-	{
-		j = 0;
-		while (s[k] != c && k < ft_strlen(s))
-		{
-			matrix[i][j] = s[k];
-			k++;
-			j++;
-		}
-		if (s[k] == c && s[k + 1] != c)
-			i++;
-		k++;
-	}
-}
-
-static void	ft_free(char **matrix)
-{
-	int	k;
-
-	k = 0;
-	while (matrix[k])
-		free(matrix[k++]);
+	while (j-- > 0)
+		free(matrix[j]);
 	free(matrix);
 }
