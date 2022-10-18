@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 16:09:29 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/15 19:53:34 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/18 19:13:44 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	ft_printf(const char *str, ...)
 		{
 			ft_select(args, str, i);
 		}
+		i++;
 	}
 	va_end(args);
 	return (ft_strlen(str));

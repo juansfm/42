@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:39:08 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/08 20:27:54 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:52:39 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
 	int	i;
-	int	len;
 
 	i = 0;
-	len = ft_strlen(s);
 	while (s[i])
 	{
 		f(i, &s[i]);

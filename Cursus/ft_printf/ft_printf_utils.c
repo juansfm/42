@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 18:04:26 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/16 17:19:34 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/18 19:14:59 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ size_t	ft_strlen(const char *s)
 void	ft_select(va_list args, const char *str, int i)
 {
 	if (str[i] == 'd' || str[i] == 'i')
-		ft_putnbr((int)va_arg(args, int));
-	else if (str[i] == 'c')
-		ft_putchar((char)va_arg(args, char));
-	else if (str[i] == 's')
-		ft_putstr((char *)va_arg(args, (char *)));
+		ft_putnbr(va_arg(args, int));
+	if (str[i] == 'c')
+		ft_putchar(va_arg(args, char));
+	if (str[i] == 's')
+		ft_putstr(va_arg(args, char *));
 	else if (str[i] == 'p')
-		ft_putnbr((unsigned long long)va_arg(args, unsigned long long));
-	else if (str[i] == 'x')
-		ft_putnbr_base((int)va_arg(args, int), "0123456789abcdef");
-	else if (str[i] == 'X')
-		ft_putnbr_base((int)va_arg(args, int), "0123456789ABCDEF");
-	else if (str[i] == '%')
+		ft_putnbr(va_arg(args, unsigned long long));
+	if (str[i] == 'x')
+		ft_putnbr_base(va_arg(args, int), "0123456789abcdef");
+	if (str[i] == 'X')
+		ft_putnbr_base(va_arg(args, int), "0123456789ABCDEF");
+	if (str[i] == '%')
 		ft_putchar('%');
 }

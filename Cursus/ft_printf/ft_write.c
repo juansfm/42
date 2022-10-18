@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:15:07 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/16 16:41:11 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:33:46 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_putnbr(int n)
 	}
 	if (n > 9)
 	{
-		ft_putnbr_fd(n / 10);
+		ft_putnbr(n / 10);
 	}
 	ft_putchar('0' + n % 10);
 }
@@ -73,7 +73,7 @@ static int	ft_error(char *str)
 	return (1);
 }
 
-void	ft_putnbr_base(int c, char *base)
+void	ft_putnbr_base(int nbr, char *base)
 {
 	int	i;
 	int	len;
