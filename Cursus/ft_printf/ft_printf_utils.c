@@ -6,13 +6,13 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 18:04:26 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/18 19:14:59 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/19 19:04:42 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen(char *s)
 {
 	int	i;
 
@@ -22,20 +22,31 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-void	ft_select(va_list args, const char *str, int i)
+void	ft_select(va_list args, const char *str, int i, int *len)
 {
+	char	*s;
+
 	if (str[i] == 'd' || str[i] == 'i')
 		ft_putnbr(va_arg(args, int));
-	if (str[i] == 'c')
-		ft_putchar(va_arg(args, char));
-	if (str[i] == 's')
-		ft_putstr(va_arg(args, char *));
+	else if (str[i] == 'c')
+		ft_putchar(va_arg(args, int));
+	else if (str[i] == 's')
+	{
+		s = va_arg(args, char *);
+		ft_putstr(s);
+	}
 	else if (str[i] == 'p')
 		ft_putnbr(va_arg(args, unsigned long long));
-	if (str[i] == 'x')
+	else if (str[i] == 'x')
 		ft_putnbr_base(va_arg(args, int), "0123456789abcdef");
-	if (str[i] == 'X')
+	else if (str[i] == 'X')
 		ft_putnbr_base(va_arg(args, int), "0123456789ABCDEF");
-	if (str[i] == '%')
+	else if (str[i] == 'u')
+		ft_putnbr(va_arg(args, unsigned int));
+	else if (str[i] == '%')
 		ft_putchar('%');
+	if (str[i] == 's')
+		*len = *len + ft_strlen(s);
+	else
+		*len = *len + 1;
 }
