@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:15:07 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/21 13:38:12 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/21 18:11:21 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static int	ft_error(char *str)
 	return (1);
 }
 
-void	ft_putnbr_base(unsigned int nbr, char *base, int *length)
+void	ft_putnbr_ba(unsigned long long nbr, char *base, int *length)
 {
 	unsigned int	i;
 	unsigned int	len;
@@ -92,7 +92,7 @@ void	ft_putnbr_base(unsigned int nbr, char *base, int *length)
 		return ;
 	len = ft_strlen(base);
 	if (nbr >= len)
-		ft_putnbr_base(nbr / len, base, length);
+		ft_putnbr_ba(nbr / len, base, length);
 	i = nbr % len;
 	write(1, &base[i], 1);
 	*length += 1;
