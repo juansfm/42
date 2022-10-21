@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 18:04:26 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/19 19:04:42 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:09:09 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,25 @@ void	ft_select(va_list args, const char *str, int i, int *len)
 	char	*s;
 
 	if (str[i] == 'd' || str[i] == 'i')
-		ft_putnbr(va_arg(args, int));
+		ft_putnbr(va_arg(args, int), len);
 	else if (str[i] == 'c')
-		ft_putchar(va_arg(args, int));
+		ft_putchar(va_arg(args, int), len);
 	else if (str[i] == 's')
 	{
 		s = va_arg(args, char *);
-		ft_putstr(s);
+		ft_putstr(s, len);
 	}
 	else if (str[i] == 'p')
-		ft_putnbr(va_arg(args, unsigned long long));
+	{
+		ft_putstr("0x", len);
+		ft_putnbr_base(va_arg(args, int), "0123456789abcdef", len);
+	}
 	else if (str[i] == 'x')
-		ft_putnbr_base(va_arg(args, int), "0123456789abcdef");
+		ft_putnbr_base(va_arg(args, int), "0123456789abcdef", len);
 	else if (str[i] == 'X')
-		ft_putnbr_base(va_arg(args, int), "0123456789ABCDEF");
+		ft_putnbr_base(va_arg(args, int), "0123456789ABCDEF", len);
 	else if (str[i] == 'u')
-		ft_putnbr(va_arg(args, unsigned int));
+		ft_putunbr(va_arg(args, unsigned int), len);
 	else if (str[i] == '%')
-		ft_putchar('%');
-	if (str[i] == 's')
-		*len = *len + ft_strlen(s);
-	else
-		*len = *len + 1;
+		ft_putchar('%', len);
 }

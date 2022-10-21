@@ -6,47 +6,57 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:15:07 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/19 12:25:44 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/21 13:38:12 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putchar(char c)
+void	ft_putchar(char c, int *len)
 {
 	write(1, &c, 1);
+	*len = *len + 1;
 }
 
-void	ft_putstr(char *str)
+void	ft_putstr(char *str, int *len)
 {
 	int	i;
 
+	if (str == NULL)
+	{
+		write (1, "(null)", 6);
+		*len = *len + 6;
+		return ;
+	}
 	i = 0;
 	while (str[i])
 	{
 		write(1, &str[i], 1);
 		i++;
 	}
+	*len = *len + ft_strlen(str);
 }
 
-void	ft_putnbr(int n)
+void	ft_putnbr(int n, int *len)
 {
 	if (n == -2147483648)
 	{
-		ft_putchar('-');
-		ft_putstr("2147483648");
+		write(1, &"-", 1);
+		write(1, "2147483648", 10);
+		*len = *len + 11;
 		return ;
 	}
 	if (n < 0 && n != -2147483648)
 	{
-		ft_putchar('-');
+		write(1, &"-", 1);
 		n = -n;
+		*len = *len + 1;
 	}
 	if (n > 9)
 	{
-		ft_putnbr(n / 10);
+		ft_putnbr(n / 10, len);
 	}
-	ft_putchar('0' + n % 10);
+	ft_putchar('0' + n % 10, len);
 }
 
 static int	ft_error(char *str)
@@ -73,27 +83,18 @@ static int	ft_error(char *str)
 	return (1);
 }
 
-void	ft_putnbr_base(int nbr, char *base)
+void	ft_putnbr_base(unsigned int nbr, char *base, int *length)
 {
-	int	i;
-	int	len;
+	unsigned int	i;
+	unsigned int	len;
 
 	if (ft_error(base) == 0)
 		return ;
 	len = ft_strlen(base);
-	if (nbr == -2147483648)
-	{
-		ft_putnbr_base(nbr / len, base);
-		ft_putnbr_base((nbr % len) * -1, base);
-	}
-	if (nbr < 0 && nbr != -2147483648)
-	{
-		write(1, "-", 1);
-		nbr = -nbr;
-	}
-	if (nbr >= len && nbr != -2147483648)
-		ft_putnbr_base(nbr / len, base);
+	if (nbr >= len)
+		ft_putnbr_base(nbr / len, base, length);
 	i = nbr % len;
 	write(1, &base[i], 1);
+	*length += 1;
 	return ;
 }

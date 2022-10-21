@@ -6,13 +6,13 @@
 #    By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/14 16:10:59 by jsaavedr          #+#    #+#              #
-#    Updated: 2022/10/15 20:20:19 by jsaavedr         ###   ########.fr        #
+#    Updated: 2022/10/21 12:18:06 by jsaavedr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-SRCS = ft_printf.c ft_printf_utils.c ft_write.c
+SRCS = ft_printf.c ft_printf_utils.c ft_write.c ft_write_2.c
 
 OBJS = ${SRCS:.c=.o}
 

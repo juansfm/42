@@ -1,40 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_write_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/14 16:09:29 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/20 13:30:12 by jsaavedr         ###   ########.fr       */
+/*   Created: 2022/10/21 12:15:00 by jsaavedr          #+#    #+#             */
+/*   Updated: 2022/10/21 12:19:17 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf(const char *str, ...)
+void	ft_putunbr(unsigned int unbr, int *len)
 {
-	va_list	args;
-	int		i;
-	int		len;
-
-	va_start(args, str);
-	i = 0;
-	len = 0;
-	while (str[i])
+	if (unbr > 9)
 	{
-		if (str[i] == '%')
-		{
-			ft_select(args, str, i + 1, &len);
-			i++;
-		}
-		else
-		{
-			write(1, &str[i], 1);
-			len++;
-		}
-		i++;
+		ft_putunbr(unbr / 10, len);
 	}
-	va_end(args);
-	return (len);
+	ft_putchar('0' + unbr % 10, len);
 }
