@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:15:07 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/21 18:11:21 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/22 11:31:11 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,9 @@ void	ft_putstr(char *str, int *len)
 	i = 0;
 	while (str[i])
 	{
-		write(1, &str[i], 1);
+		ft_putchar(str[i], len);
 		i++;
 	}
-	*len = *len + ft_strlen(str);
 }
 
 void	ft_putnbr(int n, int *len)
