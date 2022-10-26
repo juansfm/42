@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:26:50 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/14 13:38:06 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/23 14:01:50 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	ft_num_words(const char *str, char c)
 
 	i = 0;
 	num = 0;
-	while (str && str[i])
+	while (str[i])
 	{
 		if (str[i] != c)
 		{

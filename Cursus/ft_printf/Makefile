@@ -6,7 +6,7 @@
 #    By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/14 16:10:59 by jsaavedr          #+#    #+#              #
-#    Updated: 2022/10/22 11:24:27 by jsaavedr         ###   ########.fr        #
+#    Updated: 2022/10/23 13:50:18 by jsaavedr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,4 +36,4 @@ fclean: clean
 
 re:	fclean all
 
-.PHONY: all, clean, fclean, re
+.PHONY: all clean fclean re
