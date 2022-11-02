@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 17:14:11 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/12 14:11:54 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/10/27 16:48:55 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	t_list	*new;
 	t_list	*temp;
 
-	if (lst == NULL || f == NULL)
-		return (NULL);
 	new = 0;
 	while (lst)
 	{
