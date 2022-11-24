@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 12:15:00 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/21 12:19:17 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/11/20 19:08:10 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 void	ft_putunbr(unsigned int unbr, int *len)
 {
 	if (unbr > 9)
-	{
 		ft_putunbr(unbr / 10, len);
-	}
 	ft_putchar('0' + unbr % 10, len);
 }

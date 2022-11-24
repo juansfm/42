@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:15:07 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/10/22 11:31:11 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/11/20 19:08:21 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ void	ft_putnbr(int n, int *len)
 		*len = *len + 1;
 	}
 	if (n > 9)
-	{
 		ft_putnbr(n / 10, len);
-	}
 	ft_putchar('0' + n % 10, len);
 }
 
