@@ -6,29 +6,32 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:36:25 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/12/09 12:07:38 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2022/12/10 15:21:06 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin(char *s1, const char *s2)
 {
 	size_t	k;
 	char	*str;
 
+	if (s1 == NULL)
+	{
+		s1 = malloc(sizeof(char));
+		if (!s1)
+			return (NULL);
+		s1[0] = '\0';
+	}
 	if (!s2)
 		return (NULL);
 	str = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (str == NULL)
 		return (0);
-	k = 0;
-	while (s1)
-	{
+	k = -1;
+	while (s1[++k] != '\0')
 		str[k] = s1[k];
-		k++;
-	}
-	printf("%s", str);
 	while (s2[k - ft_strlen(s1)] != '\0')
 	{
 		str[k] = s2[k - ft_strlen(s1)];
