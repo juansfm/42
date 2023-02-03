@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:36:21 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/12/11 13:39:49 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:47:41 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,21 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer_line;
+	static char	*buffer_line = NULL;
 	char		*line;
 
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
-	if (!buffer_line)
-	{
-		buffer_line = (char *)malloc(1 * sizeof(*buffer_line));
-		if (!buffer_line)
-			return (NULL);
-		buffer_line = 0;
-	}
 	line = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!line)
-		return (free(buffer_line), NULL);
+		return (free(line), free(buffer_line), buffer_line = NULL, NULL);
 	line = ft_read(fd, buffer_line);
 	if (line == NULL)
 		return (NULL);
-	buffer_line = ft_strchr(line, '\n');
-	line = ft_endline(line);
+	buffer_line = ft_buffer(buffer_line, line);
+	line = ft_line(line);
 	if (line == NULL)
-		return (NULL);
+		return (free(line), free(buffer_line), buffer_line = NULL, NULL);
 	return (line);
 }
 
@@ -44,39 +37,67 @@ char	*ft_read(int fd, char *buffer)
 	ssize_t	numberbytes;
 	char	*temp;
 
-	numberbytes = 1;
-	while (numberbytes > 0)
+	numberbytes = BUFFER_SIZE;
+	while (numberbytes == BUFFER_SIZE && !ft_strchr(buffer, '\n'))
 	{
 		temp = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+		if (temp == NULL)
+			return (free(temp), temp = NULL, NULL);
 		numberbytes = read(fd, temp, BUFFER_SIZE);
 		if (numberbytes < 0)
-		{
-			free(buffer);
-			free(temp);
-			return (NULL);
-		}
-		buffer = ft_strjoin(buffer, temp);
+			return (free(temp), temp = NULL, NULL);
+		temp[numberbytes] = '\0';
+		if (numberbytes == 0)
+			return (temp);
+		buffer = ft_join(buffer, temp);
 		if (buffer == NULL)
-			return (free(buffer), NULL);
-		if (ft_strchr(temp, '\n') || numberbytes < BUFFER_SIZE)
-			break ;
+			return (free(temp), temp = NULL, NULL);
 		free(temp);
+		temp = NULL;
 	}
 	return (buffer);
 }
 
-char	*ft_endline(char *line)
+char	*ft_buffer(char *buffer, char *line)
+{
+	char	*temp;
+	int		i;
+
+	temp = (char *)malloc((ft_strlen(line) + 1) * sizeof(char));
+	if (!temp)
+		return (NULL);
+	temp = line;
+	i = 0;
+	if (ft_strchr(buffer, '\n'))
+		buffer = ft_substr(temp, ft_strchr(line, '\n'), ft_strlen(temp));
+	return (buffer);
+}
+
+char	*ft_line(char *line)
 {
 	size_t	i;
 
 	if (line == NULL)
-		return (0);
+		return (free(line), NULL);
 	i = 0;
-	while (i < ft_strlen(line))
-	{
-		if (line[i] == '\n')
-			line = ft_substr(line, 0, i);
-		i++;
-	}
+	line = ft_substr(line, 0, ft_strchr(line, '\n') - 1);
 	return (line);
+}
+
+char	*ft_join(char *s1, char *s2)
+{
+	char	*aux;
+
+	if (!s2)
+		return (NULL);
+	if (s1 == NULL)
+	{
+		s1 = malloc(sizeof(char));
+		if (!s1)
+			return (NULL);
+	}
+	aux = ft_strjoin(s1, s2);
+	free(s1);
+	s1 = NULL;
+	return (aux);
 }

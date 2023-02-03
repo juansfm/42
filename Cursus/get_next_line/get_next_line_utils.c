@@ -6,29 +6,20 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:36:25 by jsaavedr          #+#    #+#             */
-/*   Updated: 2022/12/10 15:21:06 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2023/02/01 12:24:29 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(char *s1, const char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	k;
 	char	*str;
 
-	if (s1 == NULL)
-	{
-		s1 = malloc(sizeof(char));
-		if (!s1)
-			return (NULL);
-		s1[0] = '\0';
-	}
-	if (!s2)
-		return (NULL);
 	str = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (str == NULL)
-		return (0);
+		return (NULL);
 	k = -1;
 	while (s1[++k] != '\0')
 		str[k] = s1[k];
@@ -41,14 +32,14 @@ char	*ft_strjoin(char *s1, const char *s2)
 	return (str);
 }
 
-char	*ft_substr(const char *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	size_t	total;
 	char	*str;
 
 	if (start > ft_strlen(s))
-		return ("\0");
+		return (NULL);
 	if (ft_strlen(s) - start < len && start < ft_strlen(s))
 		total = ft_strlen(s) - start + 1;
 	else
@@ -57,15 +48,15 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 	if (str != NULL)
 	{
 		i = start;
-		while (i < len + start && i < ft_strlen(s))
+		while (i <= len + start && i < ft_strlen(s))
 		{
 			str[i - start] = s[i];
 			i++;
 		}
 		str[i] = '\0';
-		return (str);
+		return (free(s), s = NULL, str);
 	}
-	return (0);
+	return (free(str), str = NULL, NULL);
 }
 
 size_t	ft_strlen(const char *s)
@@ -80,19 +71,17 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strchr(char *s, int c)
+int	ft_strchr(char *s, int c)
 {
 	size_t	i;
-	char	*str;
 
 	if (!s)
-		return (NULL);
+		return (0);
 	i = 0;
-	str = (char *)s;
 	while (i < ft_strlen(s) + 1)
 	{
-		if (str[i] == (char)c)
-			return (free(s), &str[i + 1]);
+		if (s[i] == (char)c)
+			return (i + 1);
 		i++;
 	}
 	return (0);
