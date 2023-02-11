@@ -12,3 +12,9 @@ Cursus/get_next_line/depurar
 Cursus/get_next_line/depurar.dSYM/Contents/Resources/DWARF/depurar
 Cursus/get_next_line/depurar.c
 Cursus/get_next_line/depurar.dSYM/Contents/Info.plist
+.clang-format
+Cursus/depurar.dSYM/Contents/Info.plist
+Cursus/depurar.dSYM/Contents/Resources/DWARF/depurar
+.gitignore
+Cursus/depurar
+Cursus/depurar.c

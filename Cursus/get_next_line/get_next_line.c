@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:36:21 by jsaavedr          #+#    #+#             */
-/*   Updated: 2023/02/02 15:47:41 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:03:07 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer_line = NULL;
+	static char	*buffer_line;
 	char		*line;
 
+	buffer_line = NULL;
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
 	line = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
@@ -24,7 +25,7 @@ char	*get_next_line(int fd)
 		return (free(line), free(buffer_line), buffer_line = NULL, NULL);
 	line = ft_read(fd, buffer_line);
 	if (line == NULL)
-		return (NULL);
+		return (free(line), free(buffer_line), buffer_line = NULL, NULL);
 	buffer_line = ft_buffer(buffer_line, line);
 	line = ft_line(line);
 	if (line == NULL)
@@ -48,7 +49,7 @@ char	*ft_read(int fd, char *buffer)
 			return (free(temp), temp = NULL, NULL);
 		temp[numberbytes] = '\0';
 		if (numberbytes == 0)
-			return (temp);
+			return (free(buffer), buffer = NULL, temp);
 		buffer = ft_join(buffer, temp);
 		if (buffer == NULL)
 			return (free(temp), temp = NULL, NULL);
@@ -70,6 +71,8 @@ char	*ft_buffer(char *buffer, char *line)
 	i = 0;
 	if (ft_strchr(buffer, '\n'))
 		buffer = ft_substr(temp, ft_strchr(line, '\n'), ft_strlen(temp));
+	if (buffer == NULL)
+		return (free(buffer), buffer = NULL, NULL);
 	return (buffer);
 }
 
@@ -81,6 +84,8 @@ char	*ft_line(char *line)
 		return (free(line), NULL);
 	i = 0;
 	line = ft_substr(line, 0, ft_strchr(line, '\n') - 1);
+	if (line == NULL)
+		return (free(line), line = NULL, NULL);
 	return (line);
 }
 
