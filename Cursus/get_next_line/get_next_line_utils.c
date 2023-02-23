@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:36:25 by jsaavedr          #+#    #+#             */
-/*   Updated: 2023/02/09 12:47:50 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2023/02/13 15:37:24 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	char	*str;
 
 	if (start > ft_strlen(s))
-		return (free(s), s = NULL, NULL);
+		return (free(s), s = NULL, "");
 	if (ft_strlen(s) - start < len && start < ft_strlen(s))
 		total = ft_strlen(s) - start + 1;
 	else

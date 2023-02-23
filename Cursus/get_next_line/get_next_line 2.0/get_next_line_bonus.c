@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/07 17:42:20 by jsaavedr          #+#    #+#             */
-/*   Updated: 2023/02/23 11:38:16 by jsaavedr         ###   ########.fr       */
+/*   Created: 2023/02/23 11:51:46 by jsaavedr          #+#    #+#             */
+/*   Updated: 2023/02/23 11:55:16 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*buffer[4096];
 	char		*line;
 
 	if (fd < 0)
 		return (NULL);
-	buffer = ft_read(fd, buffer);
-	if (!buffer)
+	buffer[fd] = ft_read(fd, buffer[fd]);
+	if (!buffer[fd])
 		return (NULL);
-	line = ft_line(buffer);
+	line = ft_line(buffer[fd]);
 	if (!line)
 		return (NULL);
-	buffer = ft_buffer(buffer);
+	buffer[fd] = ft_buffer(buffer[fd]);
 	return (line);
 }
 
