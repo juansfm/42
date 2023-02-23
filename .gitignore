@@ -15,6 +15,11 @@ Cursus/get_next_line/depurar.dSYM/Contents/Info.plist
 .clang-format
 Cursus/depurar.dSYM/Contents/Info.plist
 Cursus/depurar.dSYM/Contents/Resources/DWARF/depurar
-.gitignore
 Cursus/depurar
 Cursus/depurar.c
+Cursus/get_next_line/test.dSYM/Contents/Resources/DWARF/test
+Cursus/get_next_line/test.dSYM/Contents/Info.plist
+Cursus/get_next_line/get_next_line 2.0/test.dSYM/Contents/Resources/DWARF/test
+Cursus/get_next_line/get_next_line 2.0/text.txt
+Cursus/get_next_line/get_next_line 2.0/test
+Cursus/get_next_line/get_next_line 2.0/test.dSYM/Contents/Info.plist
