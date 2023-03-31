@@ -1,25 +1,12 @@
 .vscode/c_cpp_properties.json
 .vscode/settings.json
-Cursus/libft/a.out.dSYM/Contents/Info.plist
 .DS_Store
 Piscine/Shell00 ult/ex03/id_rsa_pub.pub
 main.c
 Cursus/get_next_line/text.txt
 .vscode/launch.json
 .vscode/tasks.json
-Cursus/get_next_line/a.out
-Cursus/get_next_line/depurar
-Cursus/get_next_line/depurar.dSYM/Contents/Resources/DWARF/depurar
-Cursus/get_next_line/depurar.c
-Cursus/get_next_line/depurar.dSYM/Contents/Info.plist
 .clang-format
-Cursus/depurar.dSYM/Contents/Info.plist
-Cursus/depurar.dSYM/Contents/Resources/DWARF/depurar
-Cursus/depurar
-Cursus/depurar.c
-Cursus/get_next_line/test.dSYM/Contents/Resources/DWARF/test
-Cursus/get_next_line/test.dSYM/Contents/Info.plist
-Cursus/get_next_line/get_next_line 2.0/test.dSYM/Contents/Resources/DWARF/test
+Cursus/.DS_Store
 Cursus/get_next_line/get_next_line 2.0/text.txt
-Cursus/get_next_line/get_next_line 2.0/test
-Cursus/get_next_line/get_next_line 2.0/test.dSYM/Contents/Info.plist
+Cursus/Push_swap/push_swap

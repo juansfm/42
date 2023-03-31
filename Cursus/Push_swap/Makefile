@@ -5,35 +5,40 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/14 16:10:59 by jsaavedr          #+#    #+#              #
-#    Updated: 2023/03/27 12:28:31 by jsaavedr         ###   ########.fr        #
+#    Created: 2023/02/28 11:57:13 by jsaavedr          #+#    #+#              #
+#    Updated: 2023/03/27 12:43:23 by jsaavedr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+INCLUDES	= -I ./
 
-SRCS = ft_printf.c ft_write.c ft_write_2.c
+NAME	= push_swap
 
-OBJS = ${SRCS:.c=.o}
+SRCS	= push_swap.c push_swap_2.c \
+		libft_1.c libft_2.c \
+		movement_1.c
 
-CC = gcc
+OBJS	= {SRCS:.c=.o}
 
-CFLAGS = -Wall -Wextra -Werror
+CC		= gcc
 
-RM = rm -f
+CFLAGS	= -Wall -Werror -Wextra
+
+RM		= rm -f
+
+AR 	= ar crs ${INCLUDES}
 
 all: ${NAME}
 
-${NAME}: ${OBJS}
-	${CC} -c ${CFLAGS} ${SRCS}
-	ar crs ${NAME} ${OBJS}
+${NAME}:
+	${CC} ${CFLAGS} ${SRCS} -o ${NAME}
 
 clean:
 	${RM} ${OBJS}
 
-fclean: clean
+fclean:		clean
 	${RM} ${NAME}
 
-re:	fclean all
+re:			fclean all
 
 .PHONY: all clean fclean re
