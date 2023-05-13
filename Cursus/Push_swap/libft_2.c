@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:31 by jsaavedr          #+#    #+#             */
-/*   Updated: 2023/03/27 17:16:43 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2023/05/13 18:04:12 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 		total = ft_strlen(s) - start + 1;
 	else
 		total = len + 1;
-	str = (char *)malloc(total * sizeof(char));
+	str = malloc(total * sizeof(char));
 	if (str != NULL)
 	{
 		i = start;

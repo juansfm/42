@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 14:52:32 by jsaavedr          #+#    #+#             */
-/*   Updated: 2023/03/31 17:24:42 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:49:37 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,22 @@ void	ft_push_update(t_stack *stack_i, t_stack *stack_f)
 {
 	int	p;
 
-	p = -1;
-	while (++p < stack_f[0].now_elements + 1)
+	p = 0;
+	stack_i[0].now_elem--;
+	while (++p < stack_i[0].now_elem)
 	{
-		stack_i[p].now_elements--;
+		stack_i[p].now_elem--;
 		stack_i[p].pos = p;
 	}
-	p = stack_f[0].now_elements;
-	while (--p > 0)
+	p = stack_f[1].now_elem + 1;
+	while (--p >= 0)
 	{
-		stack_f[p].now_elements++;
+		stack_f[p].now_elem++;
 		stack_f[p].pos = p;
 	}
+	stack_f[0].now_elem = stack_f[1].now_elem;
+	if (stack_f[0].now_elem == 0)
+		stack_f[0].now_elem = 1;
 }
 
 void	ft_3_params(t_stack *stack)
@@ -52,22 +56,27 @@ void	ft_3_params(t_stack *stack)
 
 void	ft_more_than_3_params(t_stack *stack_a, t_stack *stack_b)
 {
-	int	media;
+	int		media;
+	t_stack	temp;
 
-	ft_put_index(stack_a);
-	media = stack_a[0].total_elements / 2;
-	if (media < 3)
-		media = 3;
-	while (stack_a[0].now_elements > media * 2)
-	{
-		if (stack_a[0].index >= media)
-			ft_push('b', stack_a, stack_b);
-		else
-			ft_rotate('a', stack_a);
-	}
-	while (stack_a[0].now_elements > 3)
-		ft_push('b', stack_a, stack_b);
+	ft_push_to_3_params(stack_a, stack_b);
 	ft_3_params(stack_a);
+	while (stack_a[0].now_elem < stack_a[0].total_elements)
+	{
+		ft_target(stack_a, stack_b);
+		ft_cost(stack_a, stack_b);
+		temp = ft_min_cost(stack_b);
+		ft_move_min(stack_a, stack_b, temp);
+		ft_push('a', stack_b, stack_a);
+	}
+	media = stack_a[0].total_elements / 2;
+	while (stack_a[0].index != 1)
+	{
+		if (stack_a[0].index > media)
+			ft_rotate('a', stack_a);
+		else
+			ft_reverse('a', stack_a);
+	}
 }
 
 void	ft_put_index(t_stack *stack)
@@ -83,7 +92,7 @@ void	ft_put_index(t_stack *stack)
 		j = -1;
 		while (++j < stack[0].total_elements)
 			if (stack[j].num == min)
-				stack[j].index = i;
+				stack[j].index = i + 1;
 	}
 }
 

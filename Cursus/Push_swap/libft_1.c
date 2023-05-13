@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 12:54:42 by jsaavedr          #+#    #+#             */
-/*   Updated: 2023/03/27 13:00:33 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2023/04/26 15:51:54 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	**ft_split(char const *str, char c)
 	i = 0;
 	j = 0;
 	num_lines = ft_num_words(str, c);
-	matrix = (char **)malloc((num_lines + 1) * sizeof(char *));
+	matrix = malloc((num_lines + 1) * sizeof(char *));
 	if (matrix == NULL)
 		return (NULL);
 	while (i < num_lines)
@@ -86,11 +86,11 @@ static void	ft_free(char **matrix, int j)
 	free(matrix);
 }
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
-	int	i;
-	int	sign;
-	int	num;
+	int		i;
+	int		sign;
+	long	num;
 
 	i = 0;
 	sign = 1;
