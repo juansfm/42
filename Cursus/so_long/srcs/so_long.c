@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:36:08 by jsaavedr          #+#    #+#             */
-/*   Updated: 2023/06/03 17:16:54 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2023/07/05 19:54:45 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 
 int	main(int argc, char **argv)
 {
-	t_game	*map;
-	int		error;
+	t_game	*game;
 
-	error = ft_check_args(argc, argv);
-	if (error > 0)
-		return (0);
-	map = ft_init_game(argv[1]);
-	error = ft_check(map);
-	if (error > 0)
-		return (0);
-	ft_init_window(map);
+	ft_check_args(argc, argv);
+	game = ft_init_game(argv[1]);
+	ft_check_map(game);
+	ft_check_chars(game);
+	ft_check_path(game);
+	ft_init_window(game);
+	ft_free(game->map);
+	free(game);
 	return (0);
 }
 
@@ -42,13 +41,6 @@ t_game	*ft_init_game(char *map_file)
 	map->map = ft_calloc(sizeof(char *), (lines + 1));
 	if (!map->map)
 		return (NULL);
-	len = -1;
-	while (++len < lines)
-	{
-		map->map[len] = ft_calloc(sizeof(char), (map->cols + 1));
-		if (!map->map[len])
-			return (NULL);
-	}
 	map->map = ft_fill_map(map_file, map);
 	return (map);
 }
@@ -61,9 +53,7 @@ char	**ft_fill_map(char *map_file, t_game *map)
 	fd = open(map_file, O_RDONLY);
 	i = -1;
 	while (++i < map->rows)
-	{
 		map->map[i] = get_next_line(fd);
-	}
 	close(fd);
 	return (map->map);
 }
@@ -82,6 +72,7 @@ void	ft_size_map(char *map_file, int *len, int *lines)
 		lines[0]++;
 		if (len[0] < (int)ft_strlen(line))
 			len[0] = ft_strlen(line) - 1;
+		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);

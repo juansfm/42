@@ -6,35 +6,39 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:47:40 by jsaavedr          #+#    #+#             */
-/*   Updated: 2023/05/30 13:20:02 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2023/07/05 13:31:00 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-char	**ft_flood_fill(char **map, int x, int y)
+void	ft_check_path(t_game *map)
 {
-	if (map[x + 1][y] != '1' && map[x + 1][y] != 'F')
+	char	**copy;
+	int		coord[2];
+	int		i;
+	int		j;
+	int		error;
+
+	i = -1;
+	while (++i < map->rows)
 	{
-		map[x + 1][y] = 'F';
-		map = ft_flood_fill(map, x + 1, y);
+		j = -1;
+		while (++j < map->cols)
+		{
+			if (map->map[i][j] == 'P')
+			{
+				coord[0] = i;
+				coord[1] = j;
+			}
+		}
 	}
-	if (map[x - 1][y] != '1' && map[x - 1][y] != 'F')
-	{
-		map[x - 1][y] = 'F';
-		map = ft_flood_fill(map, x - 1, y);
-	}
-	if (map[x][y + 1] != '1' && map[x][y + 1] != 'F')
-	{
-		map[x][y + 1] = 'F';
-		map = ft_flood_fill(map, x, y + 1);
-	}
-	if (map[x][y - 1] != '1' && map[x][y - 1] != 'F')
-	{
-		map[x][y - 1] = 'F';
-		map = ft_flood_fill(map, x, y - 1);
-	}
-	return (map);
+	copy = ft_copy(map->map);
+	copy = ft_flood_fill(copy, coord[0], coord[1]);
+	error = ft_flood_check(copy);
+	ft_free(copy);
+	if (error > 0)
+		ft_error('P', map);
 }
 
 char	**ft_copy(char **map)
@@ -43,12 +47,15 @@ char	**ft_copy(char **map)
 	char	**copy;
 	size_t	row;
 
-	row = ft_strlen(*map);
-	copy = ft_calloc(row, sizeof(char *));
+	row = 0;
+	i = -1;
+	while (map[++i])
+		row++;
+	copy = ft_calloc(row + 1, sizeof(char *));
 	if (!copy)
 		return (NULL);
 	i = -1;
-	while (++i < ft_strlen(*map) - 1)
+	while (map[++i])
 	{
 		copy[i] = ft_strdup(map[i]);
 		if (!copy[i])
@@ -58,18 +65,35 @@ char	**ft_copy(char **map)
 	return (copy);
 }
 
+char	**ft_flood_fill(char **map, int x, int y)
+{
+	if (map[x][y] == '1' || map[x][y] == 'F')
+		return (map);
+	map[x][y] = 'F';
+	ft_flood_fill(map, x + 1, y);
+	ft_flood_fill(map, x - 1, y);
+	ft_flood_fill(map, x, y + 1);
+	ft_flood_fill(map, x, y - 1);
+	return (map);
+}
+
 int	ft_flood_check(char **map)
 {
 	size_t	i;
 	size_t	j;
 	int		error;
+	size_t	row;
 
 	error = 0;
 	i = -1;
-	while (++i < ft_strlen(*map))
+	row = 0;
+	while (map[++i])
+		row++;
+	i = -1;
+	while (map[++i])
 	{
 		j = -1;
-		while (++j < ft_strlen(map[i]))
+		while (map[i][++j])
 		{
 			if (map[i][j] == 'C' || map[i][j] == 'P' || map[i][j] == 'E')
 				error++;

@@ -6,7 +6,7 @@
 #    By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/26 18:29:55 by jsaavedr          #+#    #+#              #
-#    Updated: 2023/06/03 13:33:41 by jsaavedr         ###   ########.fr        #
+#    Updated: 2023/07/01 18:54:18 by jsaavedr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g3
 RM = rm -rf
 
-SRCS = so_long.c checks.c path.c game.c
-# SRCS = prueba.c
+SRCS = so_long.c checks.c path.c game.c images.c
 GNL_SRCS = get_next_line.c get_next_line_utils.c
 
 OBJS_DIR = objs/
