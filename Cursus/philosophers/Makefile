@@ -6,13 +6,13 @@
 #    By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/17 12:04:26 by jsaavedr          #+#    #+#              #
-#    Updated: 2023/07/17 12:10:42 by jsaavedr         ###   ########.fr        #
+#    Updated: 2023/07/28 16:15:25 by jsaavedr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRCS = philosophers.c libft.c
+SRCS = philosophers.c libft.c threads.c
 OBJS = ${SRCS:.c=.o}
 
 CC = gcc
@@ -23,7 +23,7 @@ RM = rm -f
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	${CC} ${CFLAGS} -o ${NAME} ${OBJS}
+	${CC} ${CFLAGS} -o ${NAME} ${OBJS} -g
 
 clean:
 	${RM} ${OBJS}
