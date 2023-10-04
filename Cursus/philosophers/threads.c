@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 12:45:39 by jsaavedr          #+#    #+#             */
-/*   Updated: 2023/09/27 18:26:18 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:08:51 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,25 @@
 void	*ft_supervisor(void *arg)
 {
 	int			i;
-	t_observer	*observer;
+	t_observer	observer;
+	int			dead_philo;
 
-	observer = (t_observer *)arg;
-	printf("observador\n");
-	pthread_mutex_lock(&observer->o_lock);
-	usleep(10 * observer->philo_num);
-	pthread_mutex_unlock(&observer->o_lock);
+	observer = *(t_observer *)arg;
+	usleep(observer.time_to_die * 1000);
 	while (1)
 	{
-		pthread_mutex_lock(&observer->o_lock);
 		i = -1;
-		while (++i < observer->philo_num)
+		while (++i < observer.philo_num && &observer.philos[i])
 		{
-			pthread_mutex_lock(&observer->philos[i].p_lock);
-			if (observer->philos[i].is_dead)
+			dead_philo = ft_dead_philo(&observer.philos[i], -1);
+			if (dead_philo)
 			{
-				observer->dead_philo = 1;
-				pthread_mutex_unlock(&observer->o_lock);
-				pthread_mutex_unlock(&observer->philos[i].p_lock);
-				ft_clean(observer);
+				pthread_mutex_unlock(&observer.philos[i].p_lock);
+				observer.dead_philo = 1;
+				ft_print_status(&observer.philos[i], RED, DEAD);
 				return (NULL);
 			}
-			pthread_mutex_unlock(&observer->philos[i].p_lock);
 		}
-		pthread_mutex_unlock(&observer->o_lock);
 	}
 	return (NULL);
 }
@@ -49,12 +43,47 @@ void	*ft_philo(void *arg)
 	t_philo	philo;
 
 	philo = *(t_philo *)arg;
-	while (1)
+	if (philo.info->philo_num == 1)
 	{
-		ft_eat(philo);
-		ft_sleep(philo);
-		printf("%s%lld %d %s%s\n", PURPLE, ft_get_time(), philo.philo_id, THINK, RESET);
+		ft_one_philo(&philo);
+		return (NULL);
+	}
+	// if (philo.philo_id % 2 == 0 || philo.philo_id == philo.info->philo_num)
+	// {
+	// 	ft_print_status(&philo, PURPLE, THINK);
+	// 	usleep(10);
+	// }
+	while (philo.info->dead_philo == 0)
+	{
+		ft_eat(&philo);
+		if (ft_check_death(&philo))
+			break ;
+		ft_sleep(&philo);
+		if (ft_check_death(&philo))
+			break ;
+		printf("someone died?%i \n", philo.info->dead_philo);
+		ft_print_status(&philo, PURPLE, THINK);
 	}
 	printf("Someone died\n");
 	return (NULL);
+}
+
+void	ft_one_philo(t_philo *philo)
+{
+	ft_print_status(philo, YELLOW, FORK);
+	usleep(philo->info->time_to_die * 1000);
+	ft_print_status(philo, RED, DEAD);
+	return ;
+}
+
+int	ft_check_death(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->p_lock);
+	if (philo->info->dead_philo)
+	{
+		pthread_mutex_unlock(&philo->p_lock);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->p_lock);
+	return (0);
 }

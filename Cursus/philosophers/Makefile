@@ -6,13 +6,13 @@
 #    By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/17 12:04:26 by jsaavedr          #+#    #+#              #
-#    Updated: 2023/09/24 14:04:20 by jsaavedr         ###   ########.fr        #
+#    Updated: 2023/10/04 19:10:03 by jsaavedr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRCS = philosophers.c libft.c threads.c utils.c actions.c checks.c
+SRCS = philosophers.c libft.c threads.c actions.c utils.c checks.c forks.c mutex.c
 OBJS = ${SRCS:.c=.o}
 
 CC = gcc
