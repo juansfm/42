@@ -5,20 +5,19 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/07/17 12:04:26 by jsaavedr          #+#    #+#              #
-#    Updated: 2023/10/04 19:10:03 by jsaavedr         ###   ########.fr        #
+#    Created: 2023/10/07 17:30:54 by jsaavedr          #+#    #+#              #
+#    Updated: 2023/10/08 18:25:14 by jsaavedr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRCS = philosophers.c libft.c threads.c actions.c utils.c checks.c forks.c mutex.c
+SRCS = philosophers.c libft.c utils.c check.c routines.c actions.c mutex_var.c mutex_times.c
 OBJS = ${SRCS:.c=.o}
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=thread
-RM = rm -f
-
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=thread
+RM = rm -rf
 
 all: ${NAME}
 

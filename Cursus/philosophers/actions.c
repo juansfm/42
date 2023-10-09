@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 17:04:31 by jsaavedr          #+#    #+#             */
-/*   Updated: 2023/10/04 19:04:20 by jsaavedr         ###   ########.fr       */
+/*   Created: 2023/10/07 18:57:54 by jsaavedr          #+#    #+#             */
+/*   Updated: 2023/10/09 19:17:22 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,30 @@
 
 void	ft_eat(t_philo *philo)
 {
-	long long	start_time;
-
-	start_time = -2;
-	if (!ft_check_death(philo))
+	ft_take_forks(philo);
+	if (ft_get_time() - ft_last_eat(philo, 0) >= ft_t_die(philo))
 	{
-		start_time = ft_take_forks(philo);
-		philo->last_eat = ft_get_time();
-		ft_print_status(philo, GREEN, EAT);
+		ft_o_death(philo, 1);
+		return ;
 	}
-	while (!ft_check_death(philo))
+	ft_last_eat(philo, ft_get_time());
+	ft_print_status(philo, EAT, GREEN);
+	if (ft_meals_mutex(philo, 0) != -1)
+		ft_meals_mutex(philo, 1);
+	while (1)
 	{
-		pthread_mutex_lock(&philo->p_lock);
-		if (ft_get_time() - philo->last_eat >= philo->info->time_to_die)
+		if (ft_get_time() - ft_last_eat(philo, 0) >= ft_t_die(philo))
 		{
-			philo->is_dead = 1;
-			printf("Hola%lld\n", ft_get_time() - start_time);
+			ft_o_death(philo, 1);
 			break ;
 		}
-		if (ft_get_time() - start_time >= philo->info->time_to_eat)
+		if (ft_get_time() - ft_last_eat(philo, 0) >= ft_t_eat(philo))
 			break ;
-		pthread_mutex_unlock(&philo->p_lock);
-		usleep(10);
+		if (ft_g_death(philo, 0))
+			break ;
+		ft_usleep(10);
 	}
-	if (start_time != -2)
-		ft_leave_forks(philo);
+	ft_leave_forks(philo);
 }
 
 void	ft_sleep(t_philo *philo)
@@ -46,65 +45,46 @@ void	ft_sleep(t_philo *philo)
 	long long	start_time;
 
 	start_time = ft_get_time();
-	ft_print_status(philo, BLUE, SLEEP);
-	while (!ft_check_death(philo))
+	if (ft_g_death(philo, 0))
+		return ;
+	ft_print_status(philo, SLEEP, BLUE);
+	while (1)
 	{
-		pthread_mutex_lock(&philo->p_lock);
-		if (ft_get_time() - philo->last_eat >= philo->info->time_to_die)
+		if (ft_get_time() - ft_last_eat(philo, 0) >= ft_t_die(philo))
 		{
-			philo->is_dead = 1;
-			pthread_mutex_unlock(&philo->p_lock);
+			ft_o_death(philo, 1);
 			return ;
 		}
-		if (ft_get_time() - start_time >= philo->info->time_to_sleep)
-		{
-			pthread_mutex_unlock(&philo->p_lock);
+		if (ft_get_time() - start_time >= ft_t_sleep(philo))
+			return ;
+		if (ft_g_death(philo, 0))
 			break ;
-		}
-		pthread_mutex_unlock(&philo->p_lock);
-		usleep(10);
+		ft_usleep(10);
 	}
 }
 
-long long	ft_take_forks(t_philo *philo)
+void	ft_take_forks(t_philo *philo)
 {
-	// while (1)
-	// {
-	// 	pthread_mutex_lock(&philo->p_lock);
-	// 	if (!philo->info->forks[philo->r_fork_id].is_taken
-	// 		&& !philo->info->forks[philo->l_fork_id].is_taken)
-	// 	{
-	// 		pthread_mutex_unlock(&philo->p_lock);
-	// 		break ;
-	// 	}
-	// 	if (ft_check_death(philo))
-	// 	{
-	// 		pthread_mutex_unlock(&philo->p_lock);
-	// 		return (1);
-	// 	}
-	// 	pthread_mutex_unlock(&philo->p_lock);
-	// 	usleep(10);
-	// }
-	ft_take_right(philo);
-	ft_take_left(philo);
-	return (ft_get_time());
+	if (philo->philo_id % 2 == 0
+		&& ft_last_eat(philo, 0) == philo->info->start_time)
+	{
+		ft_print_status(philo, THINK, BLUE);
+		ft_usleep(10000);
+	}
+	if (ft_get_time() - ft_last_eat(philo, 0) >= ft_t_die(philo))
+	{
+		ft_o_death(philo, 1);
+		return ;
+	}
+	pthread_mutex_lock(&philo->info->forks[philo->l_fork_id]);
+	ft_print_status(philo, FORK, YELLOW);
+	pthread_mutex_lock(&philo->info->forks[philo->r_fork_id]);
+	ft_print_status(philo, FORK, YELLOW);
+	return ;
 }
 
 void	ft_leave_forks(t_philo *philo)
 {
-	if (philo->philo_id % 2 == 1 || philo->philo_id != philo->info->philo_num
-		- 1)
-	{
-		ft_leave_right(philo);
-		ft_leave_left(philo);
-	}
-	else if (philo->philo_id % 2 == 0
-			|| philo->philo_id == philo->info->philo_num - 1)
-	{
-		ft_leave_left(philo);
-		ft_leave_right(philo);
-	}
-	pthread_mutex_lock(&philo->info->mutex.print_lock);
-	printf("%lld %i leaves forks\n", ft_get_time(), philo->philo_id);
-	pthread_mutex_unlock(&philo->info->mutex.print_lock);
+	pthread_mutex_unlock(&philo->info->forks[philo->l_fork_id]);
+	pthread_mutex_unlock(&philo->info->forks[philo->r_fork_id]);
 }

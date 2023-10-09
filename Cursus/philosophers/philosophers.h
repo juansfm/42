@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/15 13:39:39 by jsaavedr          #+#    #+#             */
-/*   Updated: 2023/10/04 19:09:53 by jsaavedr         ###   ########.fr       */
+/*   Created: 2023/10/07 17:23:01 by jsaavedr          #+#    #+#             */
+/*   Updated: 2023/10/09 19:19:44 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,83 +33,79 @@
 # define BLUE "\033[0;34m"
 # define PURPLE "\033[0;35m"
 
-typedef struct s_fork
+typedef struct s_info
 {
-	pthread_mutex_t		f_lock;
-	int					is_taken;
-}						t_fork;
-
-typedef struct s_mutex
-{
-	pthread_mutex_t	t_eat_lock;
-	pthread_mutex_t	t_sleep_lock;
-	pthread_mutex_t	t_death_lock;
-	pthread_mutex_t	death_lock;
-	pthread_mutex_t	print_lock;
-}				t_mutex;
-typedef struct s_observer
-{
-	int					philo_num;
-	long long			time_start;
-	int					time_to_die;
-	int					time_to_eat;
-	int					time_to_sleep;
-	int					meals_num;
-	int					eaten_philos;
-	int					dead_philo;
-	struct s_philo		*philos;
-	pthread_t			supervisor;
-	struct s_fork		*forks;
-	struct s_mutex		mutex;
-}						t_observer;
+	int				philo_num;
+	long long		start_time;
+	long long		time_to_die;
+	long long		time_to_eat;
+	long long		time_to_sleep;
+	int				meals_num;
+	int				full_philos;
+	int				death;
+	struct s_philo	*philo;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	die_mutex;
+	pthread_mutex_t	eat_mutex;
+	pthread_mutex_t	sleep_mutex;
+	pthread_mutex_t	g_death_mutex;
+	pthread_mutex_t	full_meals_mutex;
+	pthread_t		supervisor;
+}					t_info;
 
 typedef struct s_philo
 {
-	int					philo_id;
-	pthread_t			thread;
-	int					is_dead;
-	long long			last_eat;
-	int					num_eat;
-	int					r_fork_id;
-	int					l_fork_id;
-	struct s_observer	*info;
-	pthread_mutex_t		p_lock;
-	pthread_mutex_t		d_lock;
-}						t_philo;
+	pthread_t		thread;
+	int				philo_id;
+	int				is_dead;
+	int				eaten_times;
+	long long		last_eat;
+	struct s_info	*info;
+	int				l_fork_id;
+	int				r_fork_id;
+	pthread_mutex_t	o_death_mutex;
+	pthread_mutex_t	meals_mutex;
+	pthread_mutex_t	last_eat_mutex;
+}					t_philo;
 
-//LIBFT
-long					ft_atol(const char *str);
-void					*ft_calloc(size_t count, size_t size);
+long long			ft_atol(const char *str);
+void				*ft_calloc(size_t count, size_t size);
+int					ft_strncmp(const char *s1, const char *s2, size_t n);
+size_t				ft_strlen(const char *s);
 
-int						ft_check(int argc, char **argv);
-int						ft_check_args(int argc);
-int						ft_check_numbers(char **argv);
-int						ft_check_limits(char **argv);
+int					ft_check_data(int argc, char **argv);
+int					ft_check_args(int argc);
+int					ft_check_numbers(char **argv);
+int					ft_check_limits(char **argv);
 
-void					ft_init_var(int argc, char **argv,
-							t_observer *observer);
-void					ft_init_philos(t_observer *info);
-void					ft_init_mutex(t_observer *observer);
+void				ft_init_info(t_info *info, int argc, char **argv);
+void				ft_init_mutex(t_info *info);
+void				ft_init_philo(t_info *info);
+void				ft_init_threads(t_info *info);
 
-void					*ft_philo(void *arg);
-void					*ft_supervisor(void *arg);
-void					ft_one_philo(t_philo *philo);
+void				*ft_control_routine(void *arg);
+void				*ft_phi(void *arg);
+void				ft_one_philo(t_philo *philo);
+int					ft_control_philo(t_info *info, int i);
 
-void					ft_eat(t_philo *philo);
-void					ft_sleep(t_philo *philo);
-int						ft_check_death(t_philo *philo);
-long long				ft_take_forks(t_philo *philo);
-void					ft_leave_forks(t_philo *philo);
+void				ft_eat(t_philo *philo);
+void				ft_sleep(t_philo *philo);
+void				ft_take_forks(t_philo *philo);
+void				ft_leave_forks(t_philo *philo);
 
-int						ft_take_right(t_philo *philo);
-int						ft_take_left(t_philo *philo);
-void					ft_leave_right(t_philo *philo);
-void					ft_leave_left(t_philo *philo);
+long long			ft_t_eat(t_philo *philo);
+long long			ft_t_die(t_philo *philo);
+long long			ft_t_sleep(t_philo *philo);
+long long			ft_last_eat(t_philo *philo, long long i);
 
-int						ft_dead_philo(t_philo *philo, int dead_philo);
+int					ft_o_death(t_philo *philo, int i);
+int					ft_g_death(t_philo *philo, int i);
+int					ft_full_mutex(t_philo *philo, int i);
+int					ft_meals_mutex(t_philo *philo, int i);
 
-long long				ft_get_time(void);
-void					ft_print_status(t_philo *philo, char *color,
-							char *status);
-void					ft_clean(t_observer info);
+long long			ft_get_time(void);
+void				ft_print_status(t_philo *philo, char *status, char *color);
+void				ft_usleep(long long usleep_time);
+
 #endif

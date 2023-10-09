@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checks.c                                           :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/17 19:10:56 by jsaavedr          #+#    #+#             */
-/*   Updated: 2023/09/22 12:50:11 by jsaavedr         ###   ########.fr       */
+/*   Created: 2023/10/07 17:50:02 by jsaavedr          #+#    #+#             */
+/*   Updated: 2023/10/09 16:21:28 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	ft_check(int argc, char **argv)
+int	ft_check_data(int argc, char **argv)
 {
 	int	error;
 
@@ -51,6 +51,11 @@ int	ft_check_numbers(char **argv)
 				printf("Error: Invalid argument\n");
 				return (1);
 			}
+		}
+		if ((i == 1 || i == 5) && ft_atol(argv[i]) == 0)
+		{
+			printf("Error: Invalid argument\n");
+			return (1);
 		}
 	}
 	return (0);
