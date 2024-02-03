@@ -6,7 +6,7 @@
 /*   By: jsaavedr <jsaavedr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:42:28 by jsaavedr          #+#    #+#             */
-/*   Updated: 2023/10/09 19:22:14 by jsaavedr         ###   ########.fr       */
+/*   Updated: 2023/10/11 20:04:53 by jsaavedr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	*ft_control_routine(void *arg)
 		}
 		if (ft_full_mutex(&info->philo[0], 0) == info->philo_num)
 			return (NULL);
-		ft_usleep(100);
 	}
 	return (NULL);
 }
